@@ -68,8 +68,6 @@ app.get('*')是通配符,所有从客户端请求的url都会被匹配,向终端
 
 现在我们来仔细看下express项目的文件结构.
 
-![file-structure](http://mt1.baidu.com/timg?shitu&quality=100&sharpen=100&er=&imgtype=0&wh_rate=null&size=9&sec=1456901892&di=bab55822e14b14879bc71e86521574f0&cut_x=2&cut_y=4&cut_w=243&cut_h=330&src=http%3A%2F%2Fd.hiphotos.baidu.com%2Fimage%2Fpic%2Fitem%2Fa71ea8d3fd1f4134dc425229221f95cad1c85e6b.jpg)
-
 ###public
 文件夹下面放了一些静态资源,类似CSS,JS还有Image这样的文件.
 ###views
@@ -78,3 +76,87 @@ app.get('*')是通配符,所有从客户端请求的url都会被匹配,向终端
 文件夹下面放了一些路由处理文件.
 ###app.js
 文件是主文件,程序的入口.
+
+##app.js
+打开app.js文件,发现express-generator已经生成了一些基本代码.
+
+		var express = require('express');
+		var path = require('path');
+		var favicon = require('serve-favicon');
+		var logger = require('morgan');
+		var cookieParser = require('cookie-parser');
+		var bodyParser = require('body-parser');
+
+		var routes = require('./routes/index');
+		var users = require('./routes/users');	
+
+以上就是主入口文件的加载模块阶段,稍微细分一下,模块可以分成三大类,node自带的核心模块,比如说path,node_modules模块,这个是通过npm下载的,比如express,body-parser.还有就是文件模块,类似index,users文件.文件系统因为存在module.exports,照样可以按照CommonJS规范当成模块使用.	
+
+		var app=express();  
+实例化阶段.生成了一个express的对象赋值给app.
+
+		app.set('views', path.join(__dirname, 'views'));  
+		app.set('view engine', 'jade');  
+设置模板的路径和模板渲染引擎.
+
+		app.use(logger('dev'));
+		app.use(bodyParser.json());
+		app.use(bodyParser.urlencoded({ extended: false }));
+		app.use(cookieParser());
+		app.use(express.static(path.join(__dirname, 'public')));  
+
+中间件,解析body和cookie,请求静态资源直接去public文件夹里面找.
+
+		app.use('/', routes);
+		app.use('/users', users);  
+
+路由分发阶段,'/'会被拿到index.js文件去处理,'users'会被拿到users文件去处理.
+
+		app.use(function(req, res, next) {
+			var err = new Error('Not Found');
+			err.status = 404;
+			next(err);
+		});
+
+
+		if (app.get('env') === 'development') {
+			app.use(function(err, req, res, next) {		
+				res.status(err.status || 500);
+				res.render('error', {
+					message: err.message,
+					error: err
+				});
+			});
+		}
+		app.use(function(err, req, res, next) {
+			res.status(err.status || 500);
+			res.render('error', {
+				message: err.message,
+				error: {}
+			});
+		});
+
+
+错误处理阶段,应该要放在最后面.
+
+
+##文件MVC结构和模块
+express框架是非常容易配置和扩展的,按理来说没有什么固定的架构,但是一般来说我们会按照下面的约定来组织文件的摆放.
+
+config文件大家可能比较熟悉,就是存放项目配置的地方,models其实是存在数据库Schema的地方,稍后讲到mongo数据库和express配合使用的时候会提到.
+
+![fileStructure](http://d.hiphotos.baidu.com/image/pic/item/a6efce1b9d16fdfabccd86b9b38f8c5495ee7bc7.jpg)
+
+##监视文件的变化
+
+Express的代码运行在node服务端,存储在内存中,一旦我们更改了源代码,就需要切断进程然后重新启动,每次都要Ctrl+C,然后node app.js.这显然是一件非常繁琐的事情.
+
+其实自动重启服务器的插件还是很多.在这里就介绍一种.
+###supervisor插件
+全局安装supervisor模块.
+
+		npm install -g supervisor  
+修改package.json中start里的参数
+node ./bin/www 改成supervisor ./bin/www.
+
+不是通过npm start启动的用户可以直接用supervisor app.js取代node app.js.
