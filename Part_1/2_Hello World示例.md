@@ -53,4 +53,28 @@ app.get('*')是通配符,所有从客户端请求的url都会被匹配,向终端
 		})  
 		app.listen(port,function(){
 			console.log('run successful at port %s',port)  
-		}); 
+		});   
+
+再次输入localhost:3000/name/Jacky会返回hello world,这就是我刚才说的那个情况,经过第一个路由（/name/Jacky）的时候,仅仅是添加了状态码和响应头,有next方法,继续向下执行,再次匹配到第二个路由（*）,有res.end方法,成功返回响应.
+
+##脚手架命令行
+
+前面我们已经安装了express生成命令模块,express-generator,进入项目目录后输入
+
+		express ProjectName  
+
+![express-generator](http://b.hiphotos.baidu.com/image/pic/item/a08b87d6277f9e2fb63f775f1830e924b899f35b.jpg)
+这里创建的文件名是Server.命令行工具会自动创建一些基本的express的项目文件.
+
+现在我们来仔细看下express项目的文件结构.
+
+![file-structure](http://mt1.baidu.com/timg?shitu&quality=100&sharpen=100&er=&imgtype=0&wh_rate=null&size=9&sec=1456901892&di=bab55822e14b14879bc71e86521574f0&cut_x=2&cut_y=4&cut_w=243&cut_h=330&src=http%3A%2F%2Fd.hiphotos.baidu.com%2Fimage%2Fpic%2Fitem%2Fa71ea8d3fd1f4134dc425229221f95cad1c85e6b.jpg)
+
+###public
+文件夹下面放了一些静态资源,类似CSS,JS还有Image这样的文件.
+###views
+文件夹下面放了一些供渲染的jade模板,可以被jade渲染成html文件.
+###routers
+文件夹下面放了一些路由处理文件.
+###app.js
+文件是主文件,程序的入口.
