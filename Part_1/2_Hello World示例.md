@@ -159,4 +159,6 @@ Express的代码运行在node服务端,存储在内存中,一旦我们更改了�
 修改package.json中start里的参数
 node ./bin/www 改成supervisor ./bin/www.
 
-不是通过npm start启动的用户可以直接用supervisor app.js取代node app.js.
+不是通过npm start启动的用户可以直接用supervisor app.js取代node app.js.从此以后node的代码修改后保存,会自动重启服务器.
+![supervisor](http://c.hiphotos.baidu.com/image/pic/item/38dbb6fd5266d0165b852f7f902bd40734fa35cc.jpg)
+当遇到文件更改后,会Crashing子进程然后重新启动.
