@@ -65,8 +65,11 @@ Express框架的request对象支持所有http.request能做的,也添加了一�
     request.route是一个包含下面几个属性的对象
 
     ***path:*** 包含了最原始的Url
+    
     ***method:*** http请求的方法,Get,Post
+    
     ***params:*** 就是requert.params对象 
+    
     浏览器输入localhost:3000/products/fruit/5
     
     ![](http://g.hiphotos.baidu.com/image/pic/item/77094b36acaf2edd85f636528a1001e939019301.jpg)
