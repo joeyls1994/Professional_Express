@@ -1,0 +1,3 @@
+﻿
+Express的response对象是请求处理函数中的参数,它和request对象一样,是Node核心http.response对象的封装.因为Express的response对象有了新的方法,某种程度上来说,它是http.response对象的扩展.
+
