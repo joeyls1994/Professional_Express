@@ -24,6 +24,7 @@ Express框架的request对象支持所有http.request能做的,也添加了一�
 
 
  1. **request.query**
+ 
     request.query是处理Url问号后面的参数问题,专业术语就是查询字符串
         
         var express=require('express');
@@ -40,6 +41,7 @@ Express框架的request对象支持所有http.request能做的,也添加了一�
 
         console.log(req.query['name']) --Jacky
  2. **request.paramas**
+ 
     通过Url传递参数有几种方式,可以像前面一样/products?productId=3,也可以不采取查询字符串的形式.直接通过斜杠带参数./products/:productId.
 
         app.get('/products/:productType/:productId',function(req,res,next){
@@ -51,6 +53,7 @@ Express框架的request对象支持所有http.request能做的,也添加了一�
 
     当然你也可以改写成第一种方式/products?productType=fruit&productId=3通过request.query拿到值.具体怎么使用看你的习惯和项目需求.
  3. **request.body**
+ 
     request.body又是Express框架提供的功能强大的对象,它通常和body-parser中间件使用.
     body-parser提供了两个方法,json和urlencode,json方法用于解析http请求主体中键值对,并    转换成JSON对象.urlencode是将url的参数解析放进request.body中.
 
@@ -62,6 +65,7 @@ Express框架的request对象支持所有http.request能做的,也添加了一�
         
     你不必加载两种解析方式,只要按照自己的习惯解析.一般使用json方法将请求主体的键值对    解析成JSON对象
  4. **request.route**
+ 
     request.route是一个包含下面几个属性的对象
 
     ***path:*** 包含了最原始的Url
@@ -74,6 +78,7 @@ Express框架的request对象支持所有http.request能做的,也添加了一�
     
     ![](http://g.hiphotos.baidu.com/image/pic/item/77094b36acaf2edd85f636528a1001e939019301.jpg)
  5. **request.cookies**
+ 
     request.cookies一般配合cookie-parser中间件使用.用来解析客户端浏览器一起发送过来的cookies.维持服务端和客户端会话最重要的sessionId就是存在cookie中.
     
         npm install cookie-parser --save-dev
@@ -88,6 +93,7 @@ Express框架的request对象支持所有http.request能做的,也添加了一�
     
     ![req.cookies](http://b.hiphotos.baidu.com/image/pic/item/f603918fa0ec08fa88ae761c5eee3d6d54fbdadb.jpg)
  6. **request.header和request.get方法**
+ 
     request.header和request.get方法的作用最简单就是获取http请求头的某一个字段的值.
         
         app.get('/cookies',function(req,res,next){
