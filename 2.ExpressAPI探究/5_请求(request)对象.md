@@ -34,6 +34,7 @@ Express框架的request对象支持所有http.request能做的,也添加了一�
 在浏览器输入localhost:3000/search和localhost:3000/search?name=Jacky
 
 ![req.query](http://a.hiphotos.baidu.com/image/pic/item/a1ec08fa513d2697a9d906e652fbb2fb4316d807.jpg)
+
 原来request.query能够帮我们解析url查询字符串的参数.并且能够通过属性获得参数的值
 
         console.log(req.query['name']) --Jacky
@@ -48,5 +49,6 @@ Express框架的request对象支持所有http.request能做的,也添加了一�
 在浏览器输入localhost:3000/products/fruit/5.
 
 ![req.params](http://a.hiphotos.baidu.com/image/pic/item/b21bb051f8198618fe58e73f4ded2e738bd4e66a.jpg)
+
 当然你也可以改写成第一种方式/products?productType=fruit&productId=3通过request.query拿到值.具体怎么使用看你的习惯和项目需求.
 
